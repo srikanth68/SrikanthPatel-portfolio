@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SrikanthReddy Patel — Architect · AI Explorer · Maker</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5f0e8;
+    --ink: #1a1714;
+    --rust: #c44b2b;
+    --warm-gray: #8a847b;
+    --light-line: #d9d3c7;
+    --card-bg: #ece7dc;
+    --highlight: #e8c547;
+    --ink-light: #2c2823;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--rust); color: var(--cream); }
+  a { color: inherit; text-decoration: none; }
+
+  /* ══════ GRAIN ══════ */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 9999; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+    opacity: 0.025;
+  }
+
+  /* ══════ NAV ══════ */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    padding: 1.2rem 3rem;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(245,240,232,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--light-line);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900; font-size: 1.15rem; letter-spacing: -0.02em;
+  }
+  .nav-logo span { color: var(--rust); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.63rem;
+    text-transform: uppercase; letter-spacing: 0.18em; color: var(--warm-gray);
+    transition: color 0.3s; position: relative;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 1.5px; background: var(--rust);
+    transition: width 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-status {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem; color: var(--rust);
+    text-transform: uppercase; letter-spacing: 0.1em;
+  }
+  .nav-status .dot {
+    width: 6px; height: 6px; background: var(--rust);
+    border-radius: 50%; animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; box-shadow: 0 0 0 0 rgba(196,75,43,0.4); }
+    50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(196,75,43,0); }
+  }
+
+  /* ══════ HERO ══════ */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8rem 3rem 4rem; position: relative;
+  }
+  .hero-top-tag {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.65rem;
+    text-transform: uppercase; letter-spacing: 0.25em; color: var(--warm-gray);
+    margin-bottom: 2rem; display: flex; align-items: center; gap: 1rem;
+    animation: slideUp 0.8s ease 0.2s both;
+  }
+  .hero-top-tag::before { content: ''; width: 30px; height: 1px; background: var(--rust); }
+  .hero h1 {
+    font-family: 'Playfair Display', serif; font-weight: 900;
+    font-size: clamp(3rem,10vw,8.5rem); line-height: 0.95; letter-spacing: -0.04em;
+    animation: slideUp 0.8s ease 0.4s both;
+  }
+  .hero h1 .line2 {
+    display: block; color: transparent;
+    -webkit-text-stroke: 1.5px var(--ink);
+  }
+  .hero h1 .accent-word {
+    color: var(--rust); -webkit-text-stroke: 0;
+    font-style: italic; font-weight: 400;
+  }
+  .hero-bottom {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-top: 4rem; animation: slideUp 0.8s ease 0.6s both;
+  }
+  .hero-desc {
+    max-width: 420px; font-size: 0.9rem; line-height: 1.7; color: var(--warm-gray);
+  }
+  .hero-scroll {
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.6rem;
+    text-transform: uppercase; letter-spacing: 0.2em; color: var(--warm-gray);
+    animation: bob 2s infinite ease-in-out;
+  }
+  .hero-scroll .arrow {
+    width: 1px; height: 60px;
+    background: linear-gradient(to bottom, var(--rust), transparent);
+  }
+  @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+
+  /* Floating badges */
+  .floating-badge {
+    position: absolute; padding: 0.6rem 1.2rem;
+    border: 1px solid var(--light-line); background: var(--card-bg);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem; color: var(--rust);
+    text-transform: uppercase; letter-spacing: 0.08em;
+    animation: float 6s infinite ease-in-out;
+    box-shadow: 0 4px 20px rgba(26,23,20,0.06);
+  }
+  .floating-badge.b1 { top: 22%; right: 8%; animation-delay: 0s; }
+  .floating-badge.b2 { top: 55%; right: 14%; animation-delay: -2s; }
+  .floating-badge.b3 { top: 40%; right: 4%; animation-delay: -4s; }
+  @keyframes float {
+    0%,100% { transform: translateY(0) rotate(0deg); }
+    33% { transform: translateY(-12px) rotate(1deg); }
+    66% { transform: translateY(8px) rotate(-1deg); }
+  }
+
+  /* Deco grid */
+  .deco-grid {
+    position: absolute; top: 0; right: 0; width: 40%; height: 100%;
+    background-image:
+      linear-gradient(rgba(26,23,20,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(26,23,20,0.03) 1px, transparent 1px);
+    background-size: 60px 60px; pointer-events: none;
+    mask-image: linear-gradient(to left, rgba(0,0,0,0.4), transparent);
+    -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,0.4), transparent);
+  }
+
+  /* ══════ MARQUEE ══════ */
+  .marquee-wrap {
+    overflow: hidden;
+    border-top: 1px solid var(--light-line);
+    border-bottom: 1px solid var(--light-line);
+    padding: 1rem 0;
+  }
+  .marquee {
+    display: flex; gap: 3rem;
+    animation: marquee 22s linear infinite;
+    white-space: nowrap; width: max-content;
+  }
+  .marquee span {
+    font-family: 'Playfair Display', serif; font-weight: 700;
+    font-size: 0.95rem; text-transform: uppercase;
+    letter-spacing: 0.15em; color: var(--warm-gray);
+  }
+  .marquee span::before {
+    content: '◆'; margin-right: 3rem; color: var(--rust);
+    font-size: 0.5rem; vertical-align: middle;
+  }
+  @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+  /* ══════ SECTION COMMON ══════ */
+  section { padding: 6rem 3rem; position: relative; }
+  .section-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.6rem;
+    text-transform: uppercase; letter-spacing: 0.3em; color: var(--rust);
+    margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem;
+  }
+  .section-label::before { content: ''; width: 40px; height: 1px; background: var(--rust); }
+  .section-title {
+    font-family: 'Playfair Display', serif; font-weight: 900;
+    font-size: clamp(2rem,5vw,3.8rem); letter-spacing: -0.03em; margin-bottom: 3rem;
+  }
+
+  /* ══════ ABOUT (2-col) ══════ */
+  #about {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: start; padding-top: 8rem;
+  }
+  .about-left .big-text {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.4rem,2.8vw,2.2rem); font-style: italic; font-weight: 400;
+    line-height: 1.45; color: var(--ink); margin-top: 1.5rem;
+  }
+  .about-left .big-text em { color: var(--rust); font-style: italic; }
+  .about-right { padding-top: 3rem; }
+  .about-right p { font-size: 0.88rem; line-height: 1.8; color: var(--warm-gray); margin-bottom: 1.5rem; }
+
+  .stats-row {
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem;
+    margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--light-line);
+  }
+  .stat .number {
+    font-family: 'Playfair Display', serif; font-weight: 900;
+    font-size: 2.5rem; color: var(--rust); line-height: 1;
+  }
+  .stat .label {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.63rem;
+    text-transform: uppercase; letter-spacing: 0.15em; color: var(--warm-gray); margin-top: 0.5rem;
+  }
+
+  /* ══════ EXPERIENCE ══════ */
+  .exp-grid { display: grid; gap: 1px; background: var(--light-line); }
+  .exp-card {
+    background: var(--cream); padding: 2.5rem 3rem;
+    display: grid; grid-template-columns: 180px 1fr;
+    gap: 2.5rem; align-items: center;
+    transition: background 0.4s, padding-left 0.4s; cursor: default;
+  }
+  .exp-card:hover { background: var(--card-bg); padding-left: 4rem; }
+  .exp-date {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+    color: var(--warm-gray); text-transform: uppercase; letter-spacing: 0.08em;
+  }
+  .exp-info h3 {
+    font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.35rem; margin-bottom: 0.2rem;
+  }
+  .exp-info .role {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+    color: var(--rust); text-transform: uppercase; letter-spacing: 0.1em;
+  }
+  .exp-info p { font-size: 0.8rem; line-height: 1.65; color: var(--warm-gray); margin-top: 0.5rem; max-width: 500px; }
+
+  /* ══════ SKILLS ══════ */
+  .skills-cats { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 3rem; margin-top: 2rem; }
+  .skill-cat h3 {
+    font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.1rem;
+    margin-bottom: 1.2rem; display: flex; align-items: center; gap: 0.75rem;
+  }
+  .skill-cat h3 .cat-num {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.6rem;
+    color: var(--rust); border: 1px solid var(--rust);
+    padding: 0.2rem 0.5rem; border-radius: 3px;
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+  .skill-pill {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
+    padding: 0.7rem 1.3rem; border: 1px solid var(--light-line);
+    border-radius: 100px; color: var(--ink); background: transparent;
+    transition: all 0.3s; cursor: default; position: relative; overflow: hidden;
+  }
+  .skill-pill::before {
+    content: ''; position: absolute; inset: 0; background: var(--rust);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s cubic-bezier(0.23,1,0.32,1); z-index: -1;
+    border-radius: 100px;
+  }
+  .skill-pill:hover { border-color: var(--rust); color: var(--cream); }
+  .skill-pill:hover::before { transform: scaleX(1); }
+
+  /* ══════ CERTS ══════ */
+  .certs-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.5rem; }
+  .cert-card {
+    padding: 2rem; border: 1px solid var(--light-line); background: var(--cream);
+    position: relative; transition: all 0.4s; cursor: default;
+  }
+  .cert-card::after {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 100%; height: 3px; background: linear-gradient(90deg, var(--rust), var(--highlight));
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.5s cubic-bezier(0.23,1,0.32,1);
+  }
+  .cert-card:hover { border-color: var(--rust); transform: translateY(-3px); box-shadow: 0 8px 30px rgba(26,23,20,0.08); }
+  .cert-card:hover::after { transform: scaleX(1); }
+  .cert-issuer {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.58rem;
+    text-transform: uppercase; letter-spacing: 0.15em; color: var(--rust); margin-bottom: 0.5rem;
+  }
+  .cert-card h4 { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; line-height: 1.3; }
+  .cert-date { font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; color: var(--warm-gray); margin-top: 0.4rem; }
+
+  /* ══════ SIDE PROJECTS & SPEAKING ══════ */
+  .projects-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.5rem; }
+  .project-card {
+    padding: 2.5rem; border: 1px solid var(--light-line); background: var(--cream);
+    position: relative; overflow: hidden; transition: all 0.5s cubic-bezier(0.23,1,0.32,1); cursor: default;
+  }
+  .project-card:hover { border-color: var(--rust); transform: translateY(-4px); box-shadow: 0 12px 35px rgba(26,23,20,0.08); }
+  .project-card::after {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px;
+    background: linear-gradient(90deg, var(--rust), var(--highlight));
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.5s cubic-bezier(0.23,1,0.32,1);
+  }
+  .project-card:hover::after { transform: scaleX(1); }
+  .project-type {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.58rem;
+    text-transform: uppercase; letter-spacing: 0.15em; color: var(--rust); margin-bottom: 1rem;
+  }
+  .project-card h3 { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.3rem; margin-bottom: 0.6rem; }
+  .project-card p { font-size: 0.82rem; line-height: 1.7; color: var(--warm-gray); margin-bottom: 1.2rem; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .project-tags span {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.58rem;
+    padding: 0.3rem 0.7rem; border: 1px solid var(--light-line);
+    color: var(--rust); text-transform: uppercase; letter-spacing: 0.08em;
+  }
+  .project-card.featured { grid-column: span 2; display: grid; grid-template-columns: auto 1fr; gap: 2.5rem; align-items: center; }
+  .talk-icon {
+    width: 80px; height: 80px; background: var(--ink); color: var(--highlight);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2rem; flex-shrink: 0;
+  }
+
+  /* ══════ QUOTE BAND ══════ */
+  .quote-band {
+    padding: 6rem 3rem; background: var(--ink); color: var(--cream);
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .quote-band::before, .quote-band::after {
+    content: '\201C'; font-family: 'Playfair Display', serif; font-size: 18rem;
+    position: absolute; color: rgba(245,240,232,0.03); line-height: 1;
+  }
+  .quote-band::before { top: -3rem; left: 2rem; }
+  .quote-band::after { bottom: -9rem; right: 2rem; content: '\201D'; }
+  .quote-text {
+    font-family: 'Playfair Display', serif; font-size: clamp(1.4rem,2.8vw,2.3rem);
+    font-weight: 400; font-style: italic; line-height: 1.5;
+    max-width: 750px; margin: 0 auto; position: relative; z-index: 1;
+  }
+  .quote-text span { color: var(--highlight); }
+  .quote-attr {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.6rem;
+    text-transform: uppercase; letter-spacing: 0.2em; color: var(--warm-gray); margin-top: 2rem;
+  }
+
+  /* ══════ CONTACT ══════ */
+  #contact { text-align: center; padding: 10rem 3rem; }
+  #contact .big-cta {
+    font-family: 'Playfair Display', serif; font-weight: 900;
+    font-size: clamp(2.5rem,7vw,5.5rem); letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 1.5rem;
+  }
+  #contact .big-cta .italic { font-style: italic; font-weight: 400; color: var(--rust); }
+  .contact-sub { color: var(--warm-gray); font-size: 0.95rem; max-width: 480px; margin: 0 auto; line-height: 1.7; }
+  .contact-links { display: flex; justify-content: center; gap: 1rem; margin-top: 3rem; flex-wrap: wrap; }
+  .contact-btn {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+    padding: 1rem 2.5rem; border: 1.5px solid var(--ink);
+    background: transparent; color: var(--ink); text-transform: uppercase;
+    letter-spacing: 0.15em; transition: all 0.4s; position: relative; overflow: hidden;
+  }
+  .contact-btn::before {
+    content: ''; position: absolute; inset: 0; background: var(--ink);
+    transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.23,1,0.32,1); z-index: -1;
+  }
+  .contact-btn:hover { color: var(--cream); border-color: var(--ink); }
+  .contact-btn:hover::before { transform: translateY(0); }
+  .contact-btn.primary { background: var(--rust); color: var(--cream); border-color: var(--rust); }
+  .contact-btn.primary::before { background: var(--ink); }
+
+  /* ══════ FOOTER ══════ */
+  footer {
+    padding: 2rem 3rem; display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid var(--light-line);
+    font-family: 'JetBrains Mono', monospace; font-size: 0.58rem;
+    color: var(--warm-gray); text-transform: uppercase; letter-spacing: 0.1em;
+  }
+  footer a { transition: color 0.3s; }
+  footer a:hover { color: var(--rust); }
+
+  /* ══════ ANIMATIONS ══════ */
+  @keyframes slideUp { from { opacity: 0; transform: translateY(35px); } to { opacity: 1; transform: translateY(0); } }
+  .reveal {
+    opacity: 0; transform: translateY(25px);
+    transition: opacity 0.7s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
+  }
+  .reveal.vis { opacity: 1; transform: translateY(0); }
+
+  /* ══════ RESPONSIVE ══════ */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links, .nav-status { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .hero { padding: 6rem 1.5rem 3rem; }
+    #about { grid-template-columns: 1fr; gap: 2rem; }
+    .about-right { padding-top: 0; }
+    .exp-card { grid-template-columns: 1fr; gap: 0.5rem; padding: 2rem 1.5rem; }
+    .exp-card:hover { padding-left: 1.5rem; }
+    .skills-cats { grid-template-columns: 1fr; }
+    .certs-grid { grid-template-columns: 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .project-card.featured { grid-column: span 1; grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: repeat(3,1fr); gap: 1rem; }
+    .hero-bottom { flex-direction: column; gap: 2rem; align-items: flex-start; }
+    .hero-scroll { display: none; }
+    .floating-badge { display: none; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+    #contact { padding: 6rem 1.5rem; }
+    .quote-band { padding: 4rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Srikanth<span>Reddy</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#certs">Certifications</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-status"><span class="dot"></span>Open to Opportunities</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="deco-grid"></div>
+  <div class="floating-badge b1">14+ Years in Software</div>
+  <div class="floating-badge b2">MS Applied CS</div>
+  <div class="floating-badge b3">AWS · MCSD · Scrum</div>
+
+  <p class="hero-top-tag">Software Architect — Augusta, Maine</p>
+  <h1>
+    Srikanth
+    <span class="line2">Reddy <span class="accent-word">Patel</span></span>
+  </h1>
+
+  <div class="hero-bottom">
+    <p class="hero-desc">
+      I design robust, scalable systems for government and enterprise — and I'm always chasing what's next in tech. Currently shaping digital infrastructure at the State of Maine.
+    </p>
+    <div class="hero-scroll">
+      Scroll
+      <div class="arrow"></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee">
+    <span>.NET Architecture</span>
+    <span>Clean Code</span>
+    <span>SignalR</span>
+    <span>Cloud (AWS / Azure)</span>
+    <span>CI/CD Pipelines</span>
+    <span>Solution Design</span>
+    <span>Enterprise Systems</span>
+    <span>Generative AI</span>
+    <span>.NET Architecture</span>
+    <span>Clean Code</span>
+    <span>SignalR</span>
+    <span>Cloud (AWS / Azure)</span>
+    <span>CI/CD Pipelines</span>
+    <span>Solution Design</span>
+    <span>Enterprise Systems</span>
+    <span>Generative AI</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-left reveal">
+    <div class="section-label">01 — About</div>
+    <div class="section-title">Who I Am</div>
+    <div class="big-text">
+      I believe great software isn't just built — it's <em>architected</em>. My work sits at the intersection of clean engineering, thoughtful design, and forward-looking AI.
+    </div>
+  </div>
+  <div class="about-right reveal">
+    <p>
+      I started out as a teaching assistant, explaining code to eager students. Somewhere along the way, I fell in love with the art of structuring systems — not just writing code, but designing the blueprints that make teams ship faster and software last longer.
+    </p>
+    <p>
+      Over 14 years I've worn many hats — developer, analyst, senior engineer, architect — all within the .NET ecosystem. Today, I lead architectural decisions for the State of Maine's IT office while staying curious about emerging tech like generative AI and how it can sharpen the way we design and deliver software.
+    </p>
+    <div class="stats-row">
+      <div class="stat">
+        <div class="number">14+</div>
+        <div class="label">Years Building</div>
+      </div>
+      <div class="stat">
+        <div class="number">6</div>
+        <div class="label">Certifications</div>
+      </div>
+      <div class="stat">
+        <div class="number">15</div>
+        <div class="label">Dev Team Led</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label reveal">02 — Career</div>
+  <div class="section-title reveal">Where I've Shipped</div>
+
+  <div class="exp-grid reveal">
+    <div class="exp-card">
+      <span class="exp-date">2021 — Now</span>
+      <div class="exp-info">
+        <h3>Jr. Architect</h3>
+        <span class="role">State of Maine · Office of IT</span>
+        <p>Guiding 15 developers on architecture, leading GitHub migrations, optimizing SQL, and setting the coding standards that keep our systems consistent and fast.</p>
+      </div>
+
+    </div>
+    <div class="exp-card">
+      <span class="exp-date">2021 — Now</span>
+      <div class="exp-info">
+        <h3>DotNet Architect</h3>
+        <span class="role">Infoway Software</span>
+        <p>Designing enterprise-grade .NET solutions and establishing scalable patterns that development teams can build on confidently.</p>
+      </div>
+
+    </div>
+    <div class="exp-card">
+      <span class="exp-date">2012 — 2021</span>
+      <div class="exp-info">
+        <h3>Sr .NET Developer & Analyst</h3>
+        <span class="role">State of Maine · Infoway Software</span>
+        <p>Co-created the NEO Application Framework for Maine's Department of Education. Stood up version control, CI/CD pipelines, and hardened security across critical state apps.</p>
+      </div>
+
+    </div>
+    <div class="exp-card">
+      <span class="exp-date">2011</span>
+      <div class="exp-info">
+        <h3>.NET Developer</h3>
+        <span class="role">Midland Surveying, Inc.</span>
+        <p>Built geospatial data visualization tools using ESRI APIs and Silverlight — mapping the real world inside .NET applications.</p>
+      </div>
+
+    </div>
+    <div class="exp-card">
+      <span class="exp-date">2010</span>
+      <div class="exp-info">
+        <h3>Graduate RA & TA</h3>
+        <span class="role">Northwest Missouri State University</span>
+        <p>Led discussions, graded work, and supported faculty research — my first taste of leadership through teaching.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SIDE PROJECTS & SPEAKING -->
+<section id="projects">
+  <div class="section-label reveal">03 — Side Projects & Speaking</div>
+  <div class="section-title reveal">Beyond the Day Job</div>
+
+  <div class="projects-grid reveal">
+    <div class="project-card featured">
+      <div class="talk-icon">🎤</div>
+      <div>
+        <div class="project-type">Tech Talk</div>
+        <h3>Real-Time with SignalR</h3>
+        <p>Presented at the .NET Developer Forum on building real-time web experiences with SignalR — covering persistent connections, scalability patterns, and practical use cases for enterprise apps.</p>
+        <div class="project-tags">
+          <span>SignalR</span>
+          <span>.NET</span>
+          <span>WebSockets</span>
+          <span>Real-Time</span>
+        </div>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-type">Private Project</div>
+      <h3>NEO Application Framework</h3>
+      <p>Co-authored a custom application framework for the Maine Department of Education — a foundational layer that standardized development patterns across multiple state apps.</p>
+      <div class="project-tags">
+        <span>.NET</span>
+        <span>Framework Design</span>
+        <span>CI/CD</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-type">Private Project</div>
+      <h3>GIS Data Visualization Suite</h3>
+      <p>Built custom mapping and data visualization tools using ESRI APIs — turning raw geospatial data into interactive, analyst-friendly interfaces.</p>
+      <div class="project-tags">
+        <span>ESRI APIs</span>
+        <span>Silverlight</span>
+        <span>GIS</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-type">Shipped</div>
+      <h3>Enterprise Migration Toolkit</h3>
+      <p>Led the full migration of version control from VSTS to GitHub for a 15-person dev team — including CI/CD pipeline redesign and team onboarding.</p>
+      <div class="project-tags">
+        <span>GitHub</span>
+        <span>DevOps</span>
+        <span>Migration</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-type">Shipped</div>
+      <h3>SQL Optimization Initiative</h3>
+      <p>Systematically profiled and rewrote performance-critical queries across government applications, resulting in measurably faster page loads and reporting.</p>
+      <div class="project-tags">
+        <span>SQL Server</span>
+        <span>Performance</span>
+        <span>Tuning</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<div class="quote-band">
+  <p class="quote-text">The best architecture doesn't just solve today's problem — it <span>creates room</span> for whatever comes next.</p>
+  <p class="quote-attr">— SrikanthReddy Patel</p>
+</div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label reveal">04 — Toolbox</div>
+  <div class="section-title reveal">What I Work With</div>
+
+  <div class="skills-cats reveal">
+    <div class="skill-cat">
+      <h3><span class="cat-num">01</span> Architecture & Backend</h3>
+      <div class="skill-tags">
+        <span class="skill-pill">.NET / C#</span>
+        <span class="skill-pill">ASP.NET MVC</span>
+        <span class="skill-pill">Web API</span>
+        <span class="skill-pill">Entity Framework</span>
+        <span class="skill-pill">Microservices</span>
+        <span class="skill-pill">Clean Architecture</span>
+        <span class="skill-pill">SQL Server</span>
+      </div>
+    </div>
+    <div class="skill-cat">
+      <h3><span class="cat-num">02</span> Cloud & DevOps</h3>
+      <div class="skill-tags">
+        <span class="skill-pill">AWS</span>
+        <span class="skill-pill">Azure</span>
+        <span class="skill-pill">GitHub Actions</span>
+        <span class="skill-pill">Docker</span>
+        <span class="skill-pill">CI/CD</span>
+        <span class="skill-pill">Git / VSTS</span>
+      </div>
+    </div>
+    <div class="skill-cat">
+      <h3><span class="cat-num">03</span> AI & Exploration</h3>
+      <div class="skill-tags">
+        <span class="skill-pill">Generative AI</span>
+        <span class="skill-pill">Microsoft Copilot</span>
+        <span class="skill-pill">Prompt Engineering</span>
+        <span class="skill-pill">LLM Integration</span>
+      </div>
+    </div>
+    <div class="skill-cat">
+      <h3><span class="cat-num">04</span> Frontend & GIS</h3>
+      <div class="skill-tags">
+        <span class="skill-pill">JavaScript</span>
+        <span class="skill-pill">HTML / CSS</span>
+        <span class="skill-pill">ESRI / GIS APIs</span>
+        <span class="skill-pill">Solution Design</span>
+        <span class="skill-pill">Silverlight</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTS -->
+<section id="certs">
+  <div class="section-label reveal">05 — Credentials</div>
+  <div class="section-title reveal">Certifications</div>
+
+  <div class="certs-grid reveal">
+    <div class="cert-card">
+      <div class="cert-issuer">Microsoft</div>
+      <h4>Certified Solution Developer (MCSD)</h4>
+    </div>
+    <div class="cert-card">
+      <div class="cert-issuer">Amazon Web Services</div>
+      <h4>AWS Cloud Practitioner</h4>
+    </div>
+    <div class="cert-card">
+      <div class="cert-issuer">Amazon Web Services</div>
+      <h4>AWS Certified (Active)</h4>
+      <div class="cert-date">Feb 2025 — Feb 2028</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-issuer">Scrum Alliance</div>
+      <h4>Scrum Master Certified</h4>
+    </div>
+    <div class="cert-card">
+      <div class="cert-issuer">LinkedIn Learning</div>
+      <h4>Ethics in the Age of Gen AI</h4>
+      <div class="cert-date">May 2025</div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-issuer">LinkedIn Learning</div>
+      <h4>Microsoft 365 Copilot for Work</h4>
+      <div class="cert-date">May 2025</div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION (inline) -->
+<section>
+  <div class="section-label reveal">06 — Education</div>
+  <div class="section-title reveal">Where I Studied</div>
+  <div class="exp-grid reveal">
+    <div class="exp-card">
+      <span class="exp-date">MS Degree</span>
+      <div class="exp-info">
+        <h3>Northwest Missouri State University</h3>
+        <span class="role">Master of Science — Applied Computer Sciences</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label reveal" style="justify-content: center;">07 — Say Hello</div>
+  <div class="big-cta reveal">
+    Let's Build<br>Something <span class="italic">Meaningful</span>
+  </div>
+  <p class="contact-sub reveal">
+    Whether you need an architect for your next enterprise system, want to explore AI integration, or just want to trade notes on clean code — let's talk.
+  </p>
+  <div class="contact-links reveal">
+    <a href="https://www.linkedin.com/in/srikanthreddypatel/" target="_blank" class="contact-btn primary">LinkedIn</a>
+    <a href="/cdn-cgi/l/email-protection#493a3b202228273d2139283d2c25092c24282025672a2624" class="contact-btn">Email</a>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 SrikanthReddy Patel</span>
+  <span>Crafted with intention</span>
+  <a href="https://www.linkedin.com/in/srikanthreddypatel/" target="_blank">Augusta, Maine</a>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('clic
